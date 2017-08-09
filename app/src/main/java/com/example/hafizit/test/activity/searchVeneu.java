@@ -94,9 +94,10 @@ public class searchVeneu extends AppCompatActivity {
             }
         });
         try {
-            Intent msgIntent = new Intent(this, getNotif.class);
+            Intent msgIntent = new Intent(getApplicationContext(), getNotif.class);
 //        msgIntent.putExtra(getNotif.PARAM_IN_MSG, strInputMsg);
-            this.startService(msgIntent);
+            startService(msgIntent);
+
         } catch (Exception e){
             e.printStackTrace();
         }

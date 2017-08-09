@@ -16,7 +16,8 @@
         android:theme="@style/AppTheme"
         android:name="com.example.hafizit.test.AppController">
         <service android:name=".com.example.hafizit.test.services.getNotif"
-            android:exported="false">
+            android:enabled="true"
+            android:process=":remote">
 
         </service>
         <activity android:name=".MainActivity">
