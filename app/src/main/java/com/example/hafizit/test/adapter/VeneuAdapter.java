@@ -5,7 +5,7 @@ package com.example.hafizit.test.adapter;
  */
 
 public class VeneuAdapter {
-    String name, address;
+    String name, address, image;
 
     public  VeneuAdapter(){
 
@@ -29,5 +29,13 @@ public class VeneuAdapter {
 
     public String getAddress(){
         return address;
+    }
+
+    public void setImage(String image){
+        this.image = image;
+    }
+
+    public String getImage(){
+        return image;
     }
 }

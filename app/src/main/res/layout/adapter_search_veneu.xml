@@ -30,4 +30,10 @@
             android:text="TextView" />
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/veneuImage"
+        android:layout_width="0pt"
+        android:layout_weight="4"
+        android:layout_height="match_parent" />
+
 </LinearLayout>

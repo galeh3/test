@@ -2,6 +2,7 @@ package com.example.hafizit.test.activity;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -26,6 +27,7 @@ import com.example.hafizit.test.AppController;
 import com.example.hafizit.test.R;
 import com.example.hafizit.test.adapter.VeneuAdapter;
 import com.example.hafizit.test.adapter.searchVeneuAdapter;
+import com.example.hafizit.test.com.example.hafizit.test.services.getNotif;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -64,7 +66,7 @@ public class searchVeneu extends AppCompatActivity {
 //
 
         veneus = new ArrayList<VeneuAdapter>();
-        mAdapter = new searchVeneuAdapter(veneus);
+        mAdapter = new searchVeneuAdapter(getBaseContext(), veneus);
         recyclerVeneu.setAdapter(mAdapter);
         mLayoutManager = new LinearLayoutManager(getBaseContext());
         recyclerVeneu.setLayoutManager(mLayoutManager);
@@ -91,12 +93,20 @@ public class searchVeneu extends AppCompatActivity {
 
             }
         });
+        try {
+            Intent msgIntent = new Intent(this, getNotif.class);
+//        msgIntent.putExtra(getNotif.PARAM_IN_MSG, strInputMsg);
+            this.startService(msgIntent);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void getVeneu(final int page, final String search){
-        final String urls = "?uid=4&fiboVenueName=" + search + "&spcat=FTS&fiboStartPage=" + page + "&dtsrc=2017-09-09";
-        Log.d("page", String.valueOf(page));
+        int pages = page * 5;
+        final String urls = "?uid=4&fiboVenueName=" + search + "&spcat=FTS&fiboStartPage=" + pages + "&dtsrc=2017-09-09";
+        Log.d("page", String.valueOf(pages));
         String tag_json_obj = "req" + page;
         JsonArrayRequest jsonObjReq = new JsonArrayRequest(Request.Method.GET,
                 url + urls, null,
@@ -113,6 +123,7 @@ public class searchVeneu extends AppCompatActivity {
                                 VeneuAdapter veneu = new VeneuAdapter();
                                 veneu.setName(data.getString("venue_name"));
                                 veneu.setAddress(data.getString("venue_address"));
+                                veneu.setImage(data.getString("image"));
                                 veneus.add(veneu);
                             }
                         } catch (Exception e){
